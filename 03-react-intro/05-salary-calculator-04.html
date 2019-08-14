@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Salary Calculator</title>
+	<style>
+		.field{
+			margin-bottom: 10px;
+		}
+		body{
+			margin-left: 50px;
+		}
+		td{
+			padding-right : 10px;
+			font-size: 18pt;
+		}
+		label{
+			display : block;
+		}
+	</style>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/babel">
+		class SalaryCalculator extends React.Component{
+			state = { basic : 0, hra : 0, da : 0, tax : 0, salary : 0 };
+
+			
+			onBtnCalculateClick = () => {
+				let { basic, hra, da, tax } = this.state,
+					gross = basic + hra + da,
+					net = gross * ((100-tax)/100);
+
+				this.setState({salary : net});
+			}
+
+			
+			render(){
+				let { basic, hra, da, tax, salary } = this.state;
+				return(
+					<section>
+						<div className="field">
+							<label htmlFor="">Basic :</label>
+							<input type="number" onChange={evt => this.setState({'basic' : evt.target.valueAsNumber})} />
+						</div>
+						<div className="field">
+							<label htmlFor="">HRA :</label>
+							<input type="number" onChange={evt => this.setState({'hra' : evt.target.valueAsNumber})}/>
+						</div>
+						<div className="field">
+							<label htmlFor="">DA :</label>
+							<input type="number" onChange={evt => this.setState({'da' : evt.target.valueAsNumber})}/>
+						</div>
+						<div className="field">
+							<label htmlFor="">Tax :</label>
+							<input type="range" min="0" max="100" value={tax} onChange={evt => this.setState({'tax' : evt.target.valueAsNumber})} />
+						</div>
+						<div className="field">
+							<input type="button" value="Calculate" onClick={this.onBtnCalculateClick} />
+						</div>
+						<div className="field">
+							<table>
+								<tbody>
+									<tr>
+										<td>{basic}</td>
+										<td>{hra}</td>
+										<td>{da}</td>
+										<td>{tax}</td>
+										<td>{salary}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</section>
+				)
+			}
+		}
+
+		ReactDOM.render(<SalaryCalculator/>,
+			document.getElementById('root'));
+	</script>
+</head>
+<body>
+	<h1>Salary Calculator</h1>
+	<hr>
+	<div id="root"></div>
+</body>
+</html>
