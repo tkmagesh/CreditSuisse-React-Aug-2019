@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React Intro</title>
+	<style>
+		.highlight{
+			font-size : 18pt;
+			color : blue;
+		}
+	</style>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/babel">
+
+		class Greeter extends React.Component{
+			
+			state = { greetMessage : '[Default greet message]'};
+			userName = '';
+
+			onBtnGreetClick = (evt) => {
+				this.setState({ 
+					greetMessage : `Hi ${this.userName}, ${this.props.msgTemplate}`,
+				});
+			}
+
+			onTxtUserNameChange = (evt) => {
+				this.userName = evt.target.value;
+			}
+
+			render(){
+				console.log(this.props);
+				return this.props.show ? 
+					(<div>
+						<h1>Greeter</h1>
+						<hr/>
+						<label htmlFor="">User Name :</label>
+						<input type="text" onChange={this.onTxtUserNameChange}/>
+						<input type="button" value="Greet" onClick={this.onBtnGreetClick}/>
+						<div className="highlight">{this.state.greetMessage}</div>
+					</div>) : null;
+			}
+		}
+
+
+		ReactDOM.render(
+			<div>
+				<Greeter msgTemplate="Have a good day!" show={true}/>
+				<hr/>
+				<Greeter msgTemplate="Have a nice day!" show={false}/>
+			</div>,
+			document.getElementById('root'));
+	</script>
+</head>
+<body>
+	<div id="root"></div>
+</body>
+</html>
