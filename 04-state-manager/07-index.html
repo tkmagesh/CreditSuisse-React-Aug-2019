@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>State Manager</title>
-	<script src="state-manager.js"></script>
+	<!--<script src="state-manager.js"></script> -->
+	<script src="redux.js"></script>
 	<script src="react.development.js"></script>
 	<script src="react-dom.development.js"></script>
 	<script src="babel.min.js"></script>
@@ -15,7 +16,7 @@
 			return currentState;
 		}
 		
-		var store = SM.createStore(spinnerReducer)
+		var store = Redux.createStore(spinnerReducer)
 		
 		{/*class Spinner extends React.Component{
 			onDownClick =() => {
@@ -60,7 +61,7 @@
 			}
 		}
 
-		let actionDispatchers = SM.bindActionCreators(spinnerActionCreators, store.dispatch);
+		let actionDispatchers = Redux.bindActionCreators(spinnerActionCreators, store.dispatch);
 
 
 		function renderSpinner(){

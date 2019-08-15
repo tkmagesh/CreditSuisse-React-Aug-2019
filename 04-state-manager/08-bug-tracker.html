@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Bug Tracker</title>
+	<script src="state-manager.js"></script>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/usecases">
+		1. Add new bugs
+		2. List the added bugs
+		3. Toggle the 'closed' status of any bug
+		4. Remove closed bugs
+		5. Display the stats (# of closed bugs / total # of bugs)
+		6. Sort the bugs (assignment)
+		7. Search for the bugs (assignment)
+		8. Persist the bugs in the server
+		9. Make the bugs accessible using unique URLs (routing)
+	</script>
+	<style>
+		body{
+			margin-left: 50px
+		}
+		section{
+			margin-bottom: 10px;
+		}
+		.closed{
+			color : red;
+			text-decoration: line-through;
+			font-style: italic;
+			font-weight: bold;
+		}
+		.stats, .bugname {
+			font-size: 18pt;
+		}
+		.datetime{
+			font-style: italic;
+		}
+		.bugname{
+			cursor: pointer;
+		}
+		ol{
+			width: 500px;
+			list-style: none;
+			-webkit-padding-start : 0px;
+		}
+		li{
+			margin-bottom: 10px;
+			border: 2px solid grey;
+			border-radius: 5px;
+			padding: 10px;
+			background-color: #e7e7e7;
+		}
+	</style>
+	<script type="text/babel">
+
+		//fill in the blanks
+
+		class BugTracker extends React.Component{
+			state = { newBugName : '' };
+			onAddNewClick = () => {
+				this.props.addNew(this.state.newBugName);
+			}
+			render(){
+				let { bugs } = this.props;
+				return(
+					<React.Fragment>
+						<section className="stats">
+							<span className="closed">1</span>
+							<span> / </span>
+							<span>{bugs.length}</span>
+						</section>
+						<section className="sort">
+							<label htmlFor="">Order By :</label>
+							<select name="" id="">
+								<option value=""></option>
+								<option value=""></option>
+							</select>
+							<label htmlFor="">Descending ? :</label>
+							<input type="checkbox"  />
+						</section>
+						<section className="filter">
+							<label htmlFor="">Search :</label>
+							<input type="text"  />
+							<input type="button" value="Search" />
+						</section>
+						<section className="edit">
+							<label htmlFor="">Bug Name :</label>
+							<input type="text" onChange={ evt => this.setState({newBugName : evt.target.value})} />
+							<input type="button" value="Add New" onClick={this.onAddNewClick} />
+						</section>
+						<section className="list">
+							<ol>
+								{/*<li>
+									<span className="bugname">[This is bug - 1]</span>
+									<div className="datetime">[Created At]</div>
+								</li>
+								<li>
+									<span className="bugname closed">[This is bug - 2]</span>
+									<div className="datetime">[Created At]</div>
+								</li>*/}
+							</ol>
+							<input type="button" value="Remove Closed" />
+						</section>
+					</React.Fragment>
+				)
+			}
+		}
+
+		function renderApp(){
+			let bugs = store.getState();
+			ReactDOM.render(<BugTracker bugs={bugs} {...bugActionDispatchers}/>,
+				document.getElementById('root'));
+		}
+		renderApp();
+		store.subscribe(renderApp);
+	</script>
+</head>
+<body>
+	<h1>Bug Tracker</h1>
+	<hr>
+	<div id="root"></div>
+</body>
+</html>
