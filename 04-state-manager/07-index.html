@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>State Manager</title>
+	<script src="state-manager.js"></script>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/babel">
+		function spinnerReducer(currentState = 0, action){
+			if (action.type === 'UP') return ++currentState;
+			if (action.type === 'DOWN') return --currentState;
+			if (action.type === 'DOUBLE_UP') return currentState * 2;
+			return currentState;
+		}
+		
+		var store = SM.createStore(spinnerReducer)
+		
+		{/*class Spinner extends React.Component{
+			onDownClick =() => {
+				this.props.down();
+			}
+			onUpClick =() => {
+				this.props.up();
+			}
+			render(){
+				let { value } = this.props;
+				return (
+					<div>
+						<input type="button" value="DOWN" onClick={this.onDownClick}/>
+						<span> [ {value} ] </span>
+						<input type="button" value="UP" onClick={this.onUpClick}/>
+					</div>
+				)
+			}
+		}*/}
+
+		let Spinner = ({ value, up, down, doubleUp}) => (
+			<div>
+				<input type="button" value="DOWN" onClick={down}/>
+				<span> [ {value} ] </span>
+				<input type="button" value="UP" onClick={up}/>
+				<input type="button" value="DOUBLE_UP" onClick={doubleUp} />
+			</div>
+		)
+
+		var spinnerActionCreators = {
+			down(){
+				let action = { type : 'DOWN' };
+				return action;
+			},
+			up(){
+				let action = { type : 'UP' };
+				return action;
+			},
+			doubleUp(){
+				let action = { type : 'DOUBLE_UP' };
+				return action;	
+			}
+		}
+
+		let actionDispatchers = SM.bindActionCreators(spinnerActionCreators, store.dispatch);
+
+
+		function renderSpinner(){
+			let value = store.getState();
+			ReactDOM.render(<Spinner value={value} {...actionDispatchers} />,
+				document.getElementById('root'));
+		}
+		renderSpinner();
+		store.subscribe(renderSpinner);
+
+	</script>
+</head>
+<body>
+	<div id="root">
+		
+	</div>
+</body>
+</html>
