@@ -15,7 +15,9 @@
 
 			onAddNewClick = () => {
 				let { productNames, newProductName } = this.state;
-				this.setState({ productNames : [...productNames, newProductName]});
+				let newProductNames = [...productNames, newProductName];
+				this.setState({ productNames : newProductNames});
+				this.props.onProductsChange(newProductNames.length);
 			}
 
 			render(){
@@ -37,12 +39,22 @@
 
 		let ProductsCount = ({data}) => (<div> Products Count : {data}</div>);
 
+		class App extends React.Component{
+			state = { data : 0 };
+			render(){
+				return (
+					<div>
+						<Products onProductsChange={ count => this.setState({data : count}) }/>
+						<hr/>
+						<ProductsCount data={this.state.data}/>
+					</div>
+				)
+			}
+		}
+
 		ReactDOM.render(
-			<div>
-				<Products/>
-				<hr/>
-				<ProductsCount/>
-			</div>,
+			<App/>
+			,
 			document.getElementById('root'));
 	</script>
 </head>
