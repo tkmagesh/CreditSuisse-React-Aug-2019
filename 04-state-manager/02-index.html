@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>State Manager</title>
+	<script src="state-manager.js"></script>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/babel">
+		function spinnerReducer(currentState = 0, action){
+			if (action === 'UP') return ++currentState;
+			if (action === 'DOWN') return --currentState;
+			return currentState;
+		}
+		
+		var store = SM.createStore(spinnerReducer)
+		
+		class Spinner extends React.Component{
+			onDownClick =() => {
+				this.props.dispatch('DOWN');
+			}
+			onUpClick =() => {
+				this.props.dispatch('UP');
+			}
+			render(){
+				let { value } = this.props;
+				return (
+					<div>
+						<input type="button" value="DOWN" onClick={this.onDownClick}/>
+						<span> [ {value} ] </span>
+						<input type="button" value="UP" onClick={this.onUpClick}/>
+					</div>
+				)
+			}
+		}
+
+		function renderSpinner(){
+			let value = store.getState();
+			ReactDOM.render(<Spinner value={value} dispatch={store.dispatch}/>,
+				document.getElementById('root'));
+		}
+		renderSpinner();
+		store.subscribe(renderSpinner);
+
+	</script>
+</head>
+<body>
+	<div id="root">
+		
+	</div>
+</body>
+</html>
