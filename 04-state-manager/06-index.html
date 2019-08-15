@@ -11,6 +11,7 @@
 		function spinnerReducer(currentState = 0, action){
 			if (action.type === 'UP') return ++currentState;
 			if (action.type === 'DOWN') return --currentState;
+			if (action.type === 'DOUBLE_UP') return currentState * 2;
 			return currentState;
 		}
 		
@@ -35,11 +36,12 @@
 			}
 		}*/}
 
-		let Spinner = ({ value, up, down}) => (
+		let Spinner = ({ value, up, down, doubleUp}) => (
 			<div>
 				<input type="button" value="DOWN" onClick={down}/>
 				<span> [ {value} ] </span>
 				<input type="button" value="UP" onClick={up}/>
+				<input type="button" value="DOUBLE_UP" onClick={doubleUp} />
 			</div>
 		)
 
@@ -51,25 +53,22 @@
 			up(){
 				let action = { type : 'UP' };
 				return action;
-			}/*,
+			},
 			doubleUp(){
 				let action = { type : 'DOUBLE_UP' };
 				return action;	
-			}*/
+			}
 		}
 
 		function bindActionCreators(actionCreators, dispatch){
-			let spinnerActionDispatchers = {
-				down(){
-					let action = actionCreators.down();
-					dispatch(action);
-				},
-				up(){
-					let action = actionCreators.up();
+			let actionDispatchers = {};
+			for(let key in actionCreators){
+				actionDispatchers[key] = function(...args){
+					let action = actionCreators[key](...args);
 					dispatch(action);
 				}
-			};
-			return spinnerActionDispatchers;
+			}
+			return actionDispatchers;
 		}
 
 		let actionDispatchers = bindActionCreators(spinnerActionCreators, store.dispatch);
