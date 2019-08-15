@@ -9,8 +9,8 @@
 	<script src="babel.min.js"></script>
 	<script type="text/babel">
 		function spinnerReducer(currentState = 0, action){
-			if (action === 'UP') return ++currentState;
-			if (action === 'DOWN') return --currentState;
+			if (action.type === 'UP') return ++currentState;
+			if (action.type === 'DOWN') return --currentState;
 			return currentState;
 		}
 		
@@ -18,11 +18,11 @@
 		
 		class Spinner extends React.Component{
 			onDownClick =() => {
-				let action = { type : 'DOWN' };
+				let action = this.props.actionCreators.down();
 				this.props.dispatch(action);
 			}
 			onUpClick =() => {
-				let action = { type : 'UP' };
+				let action = this.props.actionCreators.up();
 				this.props.dispatch(action);
 			}
 			render(){
@@ -37,9 +37,20 @@
 			}
 		}
 
+		var spinnerActionCreators = {
+			down(){
+				let action = { type : 'DOWN' };
+				return action;
+			},
+			up(){
+				let action = { type : 'UP' };
+				return action;
+			}
+		}
+
 		function renderSpinner(){
 			let value = store.getState();
-			ReactDOM.render(<Spinner value={value} dispatch={store.dispatch}/>,
+			ReactDOM.render(<Spinner value={value} dispatch={store.dispatch} actionCreators={spinnerActionCreators}/>,
 				document.getElementById('root'));
 		}
 		renderSpinner();
