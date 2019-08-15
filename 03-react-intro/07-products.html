@@ -35,7 +35,14 @@
 			}
 		}
 
-		ReactDOM.render(<Products/>,
+		let ProductsCount = ({data}) => (<div> Products Count : {data}</div>);
+
+		ReactDOM.render(
+			<div>
+				<Products/>
+				<hr/>
+				<ProductsCount/>
+			</div>,
 			document.getElementById('root'));
 	</script>
 </head>
