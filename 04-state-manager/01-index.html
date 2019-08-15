@@ -4,6 +4,21 @@
 	<meta charset="UTF-8">
 	<title>State Manager</title>
 	<script src="state-manager.js"></script>
+	<script>
+		function spinnerReducer(currentState = 0, action){
+			if (action === 'UP') return ++currentState;
+			if (action === 'DOWN') return --currentState;
+			return currentState;
+		}
+		
+		var store = SM.createStore(spinnerReducer)
+		
+		store.subscribe(() => console.log(store.getState()));
+
+		store.dispatch('UP')
+
+		store.dispatch('DOWN')
+	</script>
 </head>
 <body>
 	
