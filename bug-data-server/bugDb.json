@@ -1,0 +1,20 @@
+{
+  "bugs": [
+    {
+      "id": 1,
+      "name": "Bug - 1",
+      "isClosed": false,
+      "createdAt": "2019-07-06T09:29:44.611Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Bug Tracker"
+    },
+    {
+      "id": 2,
+      "name": "Payroll Master"
+    }
+  ]
+}
