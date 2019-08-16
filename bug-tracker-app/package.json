@@ -4,9 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "redux": "^4.0.4"
   },
@@ -14,7 +18,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "update-test" : "react-scripts test --updateSnapshot"
+  },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   },
   "eslintConfig": {
     "extends": "react-app"

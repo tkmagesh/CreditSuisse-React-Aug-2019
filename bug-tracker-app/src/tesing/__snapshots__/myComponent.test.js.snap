@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly with no props 1`] = `
+<div>
+  <div
+    id="div1"
+  />
+  <h1>
+    Test Component
+  </h1>
+  <input
+    id="button1"
+    onClick={[Function]}
+    type="button"
+    value="Click"
+  />
+</div>
+`;
