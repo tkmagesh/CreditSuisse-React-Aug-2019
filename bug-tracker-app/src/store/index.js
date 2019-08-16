@@ -49,6 +49,6 @@ let rootReducer = combineReducers({
 	spinnerData : spinnerReducer
 });
 
-let appStore = createStore(rootReducer, applyMiddleware(loggerMiddleware, asyncActionMiddleware));
+let appStore = createStore(rootReducer, applyMiddleware(loggerMiddleware, asyncActionMiddleware, promiseMiddleware));
 
 export default appStore;

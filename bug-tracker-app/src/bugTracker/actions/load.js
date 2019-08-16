@@ -43,12 +43,20 @@ import { getAll } from '../services/bugApi';
 }*/
 
 //the above using async await
-export function load(){
+/*export function load(){
 	return async function(dispatch, getState){
 		let bugs = await getAll();
 		let action = { type : 'INIT', payload : bugs};
 		dispatch(action);
 	}
+}*/
+
+
+//using the promise middleware
+export async function load(){
+	let bugs = await getAll();
+	let action = { type : 'INIT', payload : bugs};
+	return action;
 }
 
 

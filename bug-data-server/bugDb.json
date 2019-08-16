@@ -1,12 +1,6 @@
 {
   "bugs": [
     {
-      "id": 3,
-      "name": "This is new bug - 3",
-      "isClosed": true,
-      "createdAt": "2019-08-16T07:20:17.021Z"
-    },
-    {
       "id": 5,
       "name": "This is new bug - 5",
       "isClosed": false,

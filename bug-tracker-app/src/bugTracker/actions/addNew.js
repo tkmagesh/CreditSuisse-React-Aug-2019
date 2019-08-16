@@ -21,11 +21,19 @@ export function addNew(newBugName){
 
 //the above using async await
 
-export function addNew(newBugName){
+/*export function addNew(newBugName){
 	return async function(dispatch, getState){
 		let newBugData = { id : 0, name: newBugName, isClosed : false, createdAt : new Date()};
 		let newBug = await save(newBugData)
 		let action = { type : 'ADD_NEW', payload : newBug };
 		dispatch(action);
 	}
+}*/
+
+//using the promise middleware
+export async function addNew(newBugName){
+	let newBugData = { id : 0, name: newBugName, isClosed : false, createdAt : new Date()};
+	let newBug = await save(newBugData)
+	let action = { type : 'ADD_NEW', payload : newBug };
+	return action;
 }
