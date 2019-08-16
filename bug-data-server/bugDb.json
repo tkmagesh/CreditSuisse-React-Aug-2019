@@ -1,16 +1,22 @@
 {
   "bugs": [
     {
-      "id": 1,
-      "name": "Bug - 1",
-      "isClosed": false,
-      "createdAt": "2019-07-06T09:29:44.611Z"
+      "id": 3,
+      "name": "This is new bug - 3",
+      "isClosed": true,
+      "createdAt": "2019-08-16T07:20:17.021Z"
     },
     {
-      "id": 2,
-      "name": "This is new bug - 2",
+      "id": 5,
+      "name": "This is new bug - 5",
       "isClosed": false,
-      "createdAt": "2019-08-16T06:49:22.902Z"
+      "createdAt": "2019-08-16T07:20:20.637Z"
+    },
+    {
+      "id": 6,
+      "name": "This is new bug - 6",
+      "isClosed": false,
+      "createdAt": "2019-08-16T07:26:32.569Z"
     }
   ],
   "projects": [

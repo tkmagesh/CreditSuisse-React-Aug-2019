@@ -1,5 +1,24 @@
+import { save } from '../services/bugApi';
+
+/*export function toggle(bugToToggle){
+	return function(dispatch, getState){
+		let toggledBugData = {...bugToToggle, isClosed : !bugToToggle.isClosed};
+		save(toggledBugData)
+			.then(toggledBug => {
+				let action = { type : 'UPDATE', payload : toggledBug };
+				dispatch(action);		
+			});
+		
+	}
+}*/
+
+//the above using async await
 export function toggle(bugToToggle){
-	let toggledBug = {...bugToToggle, isClosed : !bugToToggle.isClosed};
-	let action = { type : 'UPDATE', payload : toggledBug };
-	return action;
+	return async function(dispatch, getState){
+		let toggledBugData = {...bugToToggle, isClosed : !bugToToggle.isClosed};
+		let toggledBug = await save(toggledBugData)
+			
+		let action = { type : 'UPDATE', payload : toggledBug };
+		dispatch(action);		
+	}
 }

@@ -12,11 +12,13 @@ import BugEdit from './views/bugEdit';
 import BugList from './views/bugList';
 
 class BugTracker extends Component{
+	componentDidMount(){
+		this.props.load();
+	}
 	render(){
-		let { bugs, toggle, removeClosed, addNew, load } = this.props;
+		let { bugs, toggle, removeClosed, addNew } = this.props;
 		return(
 			<React.Fragment>
-				<input type="button" value="Load" onClick={load} />
 				<BugStats bugs={bugs} />
 				<BugSort />
 				<BugSearch />

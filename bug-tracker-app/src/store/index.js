@@ -5,20 +5,25 @@ import spinnerReducer from '../spinner/reducers';
 
 
 function loggerMiddleware({getState, dispatch}){
-	return function (next){
-		return function(action){
-			console.group(action);
-			console.log('before action, state -> ', getState());
-			next(action);
-			console.log('after action, state -> ', getState());
-			console.groupEnd();
+	return function(next){
+		return function loggerActor(action){
+			if (action.type){
+				console.group(action);
+				console.log('before action, state -> ', getState());
+				next(action);
+				console.log('after action, state -> ', getState());
+				console.groupEnd();
+			} else {
+				next(action);
+			}
 		}
 	}
 }
 
+//redux-thunk does this
 function asyncActionMiddleware({getState, dispatch}){
 	return function(next){
-		return function(action){
+		return function asyncActor(action){
 			if (typeof action === 'function'){
 				return action(dispatch, getState);
 			}
@@ -44,6 +49,6 @@ let rootReducer = combineReducers({
 	spinnerData : spinnerReducer
 });
 
-let appStore = createStore(rootReducer, applyMiddleware(loggerMiddleware, asyncActionMiddleware, promiseMiddleware));
+let appStore = createStore(rootReducer, applyMiddleware(loggerMiddleware, asyncActionMiddleware));
 
 export default appStore;

@@ -32,7 +32,7 @@ export function load(){
 
 import { getAll } from '../services/bugApi';
 
-export function load(){
+/*export function load(){
 	return function(dispatch, getState){
 		getAll()
 			.then(bugs => {
@@ -40,6 +40,17 @@ export function load(){
 				dispatch(action);
 			})
 	}
+}*/
+
+//the above using async await
+export function load(){
+	return async function(dispatch, getState){
+		let bugs = await getAll();
+		let action = { type : 'INIT', payload : bugs};
+		dispatch(action);
+	}
 }
+
+
 
 
