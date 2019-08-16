@@ -1,0 +1,176 @@
+npm install --save-dev enzyme enzyme-adapter-react-16 enzyme-to-json
+
+package.json :
+
+"jest": {
+  "snapshotSerializers": ["enzyme-to-json/serializer"]
+}
+
+./src/setupTests.js:
+
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+configure({ adapter: new Adapter() });
+
+
+Files with .js suffix in __tests__ folders.
+Files with .test.js suffix.
+Files with .spec.js suffix.
+
+
+import { mount, shallow, render } from ‘enzyme';
+
+
+Mounting
+Full DOM rendering including child components
+Ideal for use cases where you have components that may interact with DOM API, or use React lifecycle methods in order to fully test the component
+As it actually mounts the component in the DOM .unmount() should be called after each tests to stop tests affecting each other
+
+
+For simple non-interactive components:
+it('should render correctly with no props', () => {
+  const component = shallow(<MyComponent/>);
+  
+  expect(component).toMatchSnapshot();
+});
+it('should render banner text correctly with given strings', () => {
+  const strings = ['one', 'two'];
+  const component = shallow(<MyComponent list={strings} />);
+  expect(component).toMatchSnapshot();
+});
+
+Events
+it('should be possible to activate button with Spacebar', () => {
+  const component = mount(<MyComponent />);
+  component
+    .find('button#my-button-one')
+    .simulate('keydown', { keyCode: 32 });
+  expect(component).toMatchSnapshot();
+  component.unmount();
+});
+
+Simulating Events
+component.find(selector).simulate(event);
+component.find(selector).simulate('click');
+component.find(selector).simulate('change');
+component.find(selector).simulate('keydown', { keyCode: 32 });
+
+Selectors
+Class syntax (.foo, .foo-bar, etc.)
+Element syntax (input, div, span, etc.)
+ID syntax (#foo, #foo-bar, etc.)
+Attribute syntax ([href="foo"], [type="text"], etc.)
+
+
+Mock Functions
+const clickFn = jest.fn();
+describe('MyComponent', () => {
+  it('button click should hide component', () => {
+    const component = shallow(<MyComponent onClick={clickFn} />);
+    component
+      .find('button#my-button-two')
+      .simulate('click');
+    expect(clickFn).toHaveBeenCalled();
+  });
+});
+
+Accessing State & Props
+it('sets loading state to true on save press', () => {
+  const component = mount(<MyComponent />);
+  component.find('[className="save-button"]').simulate('click');
+  expect(component.state('isLoading')).toEqual(true);
+  component.unmount();
+});
+
+
+Mock advanced
+const mockTryGetValue = jest.fn(() => false);
+const mockTrySetValue = jest.fn(); 
+ 
+jest.mock('save-to-storage', () => ({   
+  SaveToStorage: jest.fn().mockImplementation(() => ({
+    tryGetValue: mockTryGetValue,
+    trySetValue: mockTrySetValue,
+  })), 
+}));
+describe('MyComponent', () => {
+  it('should set storage on save button click', () => {
+    mockTryGetValue.mockReturnValueOnce(true);
+    const component = mount(<MyComponent />); 
+    component.find('button#my-button-three').simulate('click');
+    expect(mockTryGetValue).toHaveBeenCalled();
+    expect(component).toMatchSnapshot();
+    component.unmount();   
+  });    
+});
+
+update snapshot
+jest --updateSnapshot
+
+
+
+
+mocking http requests using nock
+it('should return a user', () => {
+  
+  nock('https://randomuser.me')
+    .get('/api/')
+    .reply(200, {
+      results: [{ name: 'Dominic' }],
+    });
+  return query
+    .getRandomUser()
+    .then(res => res.results[0].name)
+    .then(res => expect(res).toEqual('Dominic'));
+});
+
+
+https://codeburst.io/testing-mocking-http-requests-with-nock-480e3f164851
+
+webdriver.io
+https://www.npmjs.com/package/jest-environment-webdriverio
+https://moduscreate.com/blog/automated-tests-for-react-js-web-apps-using-webdriverio/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**********************/
+https://medium.com/codeclan/testing-react-with-jest-and-enzyme-20505fec4675
+
+https://codeburst.io/testing-react-events-with-jest-and-enzyme-ii-46fbe4b8b589
+
+https://hackernoon.com/testing-react-components-with-jest-and-enzyme-41d592c174f
+
+https://blog.bitsrc.io/how-to-test-react-components-with-jest-and-enzyme-in-depth-145fcd06b90
+
+webdriver.io
+
+https://moduscreate.com/blog/automated-tests-for-react-js-web-apps-using-webdriverio/
