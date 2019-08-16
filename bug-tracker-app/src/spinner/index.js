@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import spinnerActionCreators from './actions';
 
 class Spinner extends Component{
 	onDownClick =() => {
@@ -19,4 +23,20 @@ class Spinner extends Component{
 	}
 }
 
-export default Spinner;
+function mapStateToProps(appState){
+	let spinnerValue = appState.spinnerData;
+	return { value : spinnerValue };
+}
+
+function mapDispatchToProps(dispatch){
+	let spinnerActionDispatchers = bindActionCreators(spinnerActionCreators, dispatch);
+	return spinnerActionDispatchers;
+}
+
+export default connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(Spinner);
+
+
+	
