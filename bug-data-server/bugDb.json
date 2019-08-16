@@ -5,6 +5,12 @@
       "name": "Bug - 1",
       "isClosed": false,
       "createdAt": "2019-07-06T09:29:44.611Z"
+    },
+    {
+      "id": 2,
+      "name": "This is new bug - 2",
+      "isClosed": false,
+      "createdAt": "2019-08-16T06:49:22.902Z"
     }
   ],
   "projects": [

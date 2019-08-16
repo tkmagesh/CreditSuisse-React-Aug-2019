@@ -13,9 +13,10 @@ import BugList from './views/bugList';
 
 class BugTracker extends Component{
 	render(){
-		let { bugs, toggle, removeClosed, addNew } = this.props;
+		let { bugs, toggle, removeClosed, addNew, load } = this.props;
 		return(
 			<React.Fragment>
+				<input type="button" value="Load" onClick={load} />
 				<BugStats bugs={bugs} />
 				<BugSort />
 				<BugSearch />
@@ -32,9 +33,12 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(appState){
-	let bugs = appState.bugsData,
+	/*let bugs = appState.bugsData,
 		spinnerValue = appState.spinnerData;
-	return { bugs : bugs.filter(bug => bug.id % 2 === spinnerValue % 2) };
+	return { bugs : bugs.filter(bug => bug.id % 2 === spinnerValue % 2) };*/
+
+	let bugs = appState.bugsData;
+	return { bugs : bugs };
 }
 
 export default connect(
