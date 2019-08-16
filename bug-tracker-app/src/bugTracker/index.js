@@ -32,8 +32,9 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(appState){
-	let bugs = appState.bugsData;
-	return { bugs : bugs };
+	let bugs = appState.bugsData,
+		spinnerValue = appState.spinnerData;
+	return { bugs : bugs.filter(bug => bug.id % 2 === spinnerValue % 2) };
 }
 
 export default connect(

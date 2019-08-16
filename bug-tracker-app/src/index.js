@@ -16,7 +16,7 @@ ReactDOM.render(
 		<div>
 			<Spinner/>
 			<hr/>
-			<BugTracker/>
+			<BugTracker xyz="100"/>
 		</div>
 	</Provider>,
 	document.getElementById('root'));
