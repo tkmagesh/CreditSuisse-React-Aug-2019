@@ -49,8 +49,5 @@ ReactDOM.render(
 serviceWorker.unregister();
 
 
-let MyComponent = () => (
-	<h1>Test Component</h1>
-);
 
 

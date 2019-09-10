@@ -11,6 +11,30 @@
       "name": "This is new bug - 6",
       "isClosed": false,
       "createdAt": "2019-08-16T07:26:32.569Z"
+    },
+    {
+      "id": 7,
+      "name": "This is another bug - 7",
+      "isClosed": false,
+      "createdAt": "2019-08-30T09:50:11.108Z"
+    },
+    {
+      "id": 8,
+      "name": "This is a new bug - 8",
+      "isClosed": false,
+      "createdAt": "2019-08-30T09:51:31.366Z"
+    },
+    {
+      "id": 9,
+      "name": "This is new bug 9",
+      "isClosed": false,
+      "createdAt": "2019-08-30T09:52:50.928Z"
+    },
+    {
+      "id": 10,
+      "name": "This is new bug - 4",
+      "isClosed": false,
+      "createdAt": "2019-08-30T09:53:54.435Z"
     }
   ],
   "projects": [
